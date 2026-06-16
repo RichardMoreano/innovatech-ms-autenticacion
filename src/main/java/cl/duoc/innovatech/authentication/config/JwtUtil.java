@@ -1,7 +1,6 @@
 package cl.duoc.innovatech.authentication.config;
 
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -21,16 +20,17 @@ public class JwtUtil {
 
     // Generamos un JWT simple con subject = username y claim role
     public String generateToken(String username, String role) {
-        Key key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
-        Date now = new Date();
-        Date exp = new Date(now.getTime() + expirationMillis);
+    Key key = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+    Date now = new Date();
+    Date exp = new Date(now.getTime() + expirationMillis);
 
-        return Jwts.builder()
-                .setSubject(username)
-                .claim("role", role)
-                .setIssuedAt(now)
-                .setExpiration(exp)
-                .signWith(key, SignatureAlgorithm.HS256)
-                .compact();
+    // Usamos la API fluida moderna de JJWT 0.12+: subject(), issuedAt(), expiration() y signWith(key)
+    return Jwts.builder()
+        .subject(username)
+        .claim("role", role)
+        .issuedAt(now)
+        .expiration(exp)
+        .signWith(key)
+        .compact();
     }
 }

@@ -45,4 +45,25 @@ public class AuthController {
 
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody LoginRequest request) {
+        // Verificamos si ya existe el usuario
+        Optional<Usuario> existing = userRepository.findByUsername(request.getUsername());
+        if (existing.isPresent()) {
+            return ResponseEntity.badRequest().body("El nombre de usuario ya está tomado");
+        }
+
+        // Ciframos la contraseña recibida
+        String encoded = passwordEncoder.encode(request.getPassword());
+
+        Usuario user = new Usuario();
+        user.setUsername(request.getUsername());
+        user.setPassword(encoded);
+        user.setRole("ROLE_USER");
+
+        userRepository.save(user);
+
+        return ResponseEntity.status(201).build();
+    }
 }

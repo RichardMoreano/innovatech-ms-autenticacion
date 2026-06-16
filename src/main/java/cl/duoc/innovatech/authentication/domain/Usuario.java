@@ -1,9 +1,17 @@
 package cl.duoc.innovatech.authentication.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Entity
 @Table(name = "usuarios")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Usuario {
 
     @Id
@@ -14,26 +22,15 @@ public class Usuario {
     private String username;
 
     @Column(nullable = false)
-    private String password; // password cifrado (bcrypt)
+    private String password; // Password cifrado con BCrypt desde el servicio
 
     @Column(nullable = false)
     private String role;
 
-    public Usuario() {}
-
+    // Constructor personalizado omitiendo el ID (JPA lo genera automáticamente)
     public Usuario(String username, String password, String role) {
         this.username = username;
         this.password = password;
         this.role = role;
     }
-
-    public Long getId() { return id; }
-    public String getUsername() { return username; }
-    public String getPassword() { return password; }
-    public String getRole() { return role; }
-
-    public void setId(Long id) { this.id = id; }
-    public void setUsername(String username) { this.username = username; }
-    public void setPassword(String password) { this.password = password; }
-    public void setRole(String role) { this.role = role; }
 }
