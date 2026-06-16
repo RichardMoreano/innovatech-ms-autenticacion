@@ -4,10 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+// Prueba sencilla de la entidad Usuario, como la haría un compañero en clase
 class UsuarioTest {
 
     @Test
-    void usuario_gettersAndSetters_shouldWork() {
+    void usuario_getters_y_setters_funcionan() {
         Usuario u = new Usuario();
         u.setId(1L);
         u.setUsername("Richard");

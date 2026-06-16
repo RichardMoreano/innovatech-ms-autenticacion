@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.hamcrest.Matchers.is;
 
-// Test del AuthController usando MockMvc en modo standalone para evitar dependencias de anotaciones
+// Pruebas del AuthController hechas de forma sencilla, con comentarios como los haría un estudiante
 class AuthControllerTest {
 
     private MockMvc mockMvc;
@@ -75,7 +75,7 @@ class AuthControllerTest {
     }
 
     @Test
-    void login_withValidCredentials_returns200AndToken() throws Exception {
+    void login_conCredencialesValidas_devuelve200_y_tokenValido() throws Exception {
         // Mockeamos el repositorio para simular que el usuario sí existe en la BD
         Usuario user = new Usuario();
         user.setUsername("admin");
@@ -122,7 +122,7 @@ class AuthControllerTest {
     }
 
     @Test
-    void login_withInvalidCredentials_returns401() throws Exception {
+    void login_conCredencialesInvalidas_devuelve401() throws Exception {
         // Simulamos que el usuario no existe
     UserRepository repoEmpty = (UserRepository) Proxy.newProxyInstance(
         UserRepository.class.getClassLoader(),
@@ -145,7 +145,7 @@ class AuthControllerTest {
     }
 
     @Test
-    void register_withNewUser_returns201() throws Exception {
+    void registro_conUsuarioNuevo_devuelve201() throws Exception {
     UserRepository repoForRegister = (UserRepository) Proxy.newProxyInstance(
         UserRepository.class.getClassLoader(),
         new Class[]{UserRepository.class},
@@ -166,7 +166,7 @@ class AuthControllerTest {
     }
 
     @Test
-    void register_withExistingUser_returns400() throws Exception {
+    void registro_conUsuarioExistente_devuelve400_y_mensaje() throws Exception {
     Usuario existing = new Usuario();
     existing.setUsername("existente");
     existing.setPassword(encoder.encode("claveSegura123"));

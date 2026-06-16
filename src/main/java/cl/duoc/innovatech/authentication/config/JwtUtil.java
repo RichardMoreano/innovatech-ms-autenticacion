@@ -24,7 +24,7 @@ public class JwtUtil {
     Date now = new Date();
     Date exp = new Date(now.getTime() + expirationMillis);
 
-    // Usamos la API fluida moderna de JJWT 0.12+: subject(), issuedAt(), expiration() y signWith(key)
+    // Usamos la API fluida moderna de JJWT: subject(), issuedAt(), expiration() y signWith(key)
     return Jwts.builder()
         .subject(username)
         .claim("role", role)

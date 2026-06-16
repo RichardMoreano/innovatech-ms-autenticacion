@@ -11,12 +11,12 @@ import java.security.Key;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-// Pruebas unitarias para JwtUtil: generamos un token y verificamos su contenido
+// Pruebas unitarias para JwtUtil (explicadas como un estudiante)
 class JwtUtilTest {
 
     @Test
-    void generateToken_shouldContainSubjectAndRole() throws Exception {
-        // Creamos la instancia y seteamos secret y expiración por reflexión
+    void generarToken_contiene_subject_y_role() throws Exception {
+        // Creo la instancia y seteo el secret y expiración usando reflexión
         JwtUtil jwtUtil = new JwtUtil();
 
         String secret = "test-secret-which-is-long-enough-0123456789abcd";
@@ -42,7 +42,7 @@ class JwtUtilTest {
     }
 
     @Test
-    void parsing_malformedToken_shouldNotThrowUnexpected() throws Exception {
+    void parsing_tokenMalFormado_no_debe_lanzar_excepciones() throws Exception {
         JwtUtil jwtUtil = new JwtUtil();
         String secret = "test-secret-which-is-long-enough-0123456789abcd";
         org.springframework.test.util.ReflectionTestUtils.setField(jwtUtil, "secret", secret);
