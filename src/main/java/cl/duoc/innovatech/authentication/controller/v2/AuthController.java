@@ -1,11 +1,12 @@
-package cl.duoc.innovatech.autenticacion.controller.v2;
+package cl.duoc.innovatech.authentication.controller.v2;
 
-import cl.duoc.innovatech.autenticacion.dto.LoginRequest;
-import cl.duoc.innovatech.autenticacion.dto.AuthResponse;
-import cl.duoc.innovatech.autenticacion.service.AuthService;
-import jakarta.validation.Valid;
+import cl.duoc.innovatech.authentication.dto.LoginRequest;
+import cl.duoc.innovatech.authentication.dto.AuthResponse;
+import cl.duoc.innovatech.authentication.service.AuthService;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v2/auth")
@@ -18,8 +19,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
-        AuthResponse response = authService.authenticate(request);
+    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
+        AuthResponse response = authService.login(loginRequest);
         return ResponseEntity.ok(response);
     }
 }
