@@ -5,6 +5,7 @@ import cl.duoc.innovatech.authentication.model.Usuario;
 import cl.duoc.innovatech.authentication.dto.AuthResponse;
 import cl.duoc.innovatech.authentication.repository.UsuarioRepository;
 import cl.duoc.innovatech.authentication.service.AuthService;
+import cl.duoc.innovatech.authentication.util.JwtUtils;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,11 +15,13 @@ public class AuthServiceImpl implements AuthService {
 
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtils jwtUtils;
 
-    // Inyecta ambos componentes requeridos
-    public AuthServiceImpl(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
+    // 2. INYECTARLO EN EL CONSTRUCTOR
+    public AuthServiceImpl(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder, JwtUtils jwtUtils) {
         this.usuarioRepository = usuarioRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtUtils = jwtUtils;
     }
 
     @Override
@@ -32,8 +35,8 @@ public class AuthServiceImpl implements AuthService {
             throw new RuntimeException("Contraseña incorrecta");
         }
 
-        // Retornamos un token estructurado para que el Gateway lo pueda leer después
-        String tokenSimulado = "mock-jwt-token-v2-" + usuario.getRol();
-        return new AuthResponse(tokenSimulado, usuario.getEmail(), usuario.getRol());
+        // Retornamos un token criptográfico real estructurado para el Gateway
+        String tokenReal = jwtUtils.generarToken(usuario);
+        return new AuthResponse(tokenReal, usuario.getEmail(), usuario.getRol());
     }
 }
