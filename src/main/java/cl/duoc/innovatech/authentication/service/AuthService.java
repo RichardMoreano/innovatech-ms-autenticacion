@@ -1,5 +1,8 @@
 package cl.duoc.innovatech.authentication.service;
 
-public class AuthService {
+import cl.duoc.innovatech.authentication.dto.LoginRequest;
+import cl.duoc.innovatech.authentication.dto.AuthResponse;
 
+public interface AuthService {
+    AuthResponse authenticate(LoginRequest request);
 }
